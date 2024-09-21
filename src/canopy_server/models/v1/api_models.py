@@ -6,6 +6,15 @@ from canopy.models.data_models import Messages, Query, Document
 
 # TODO: consider separating these into modules: Chat, Context, Application, etc.
 
+class Model(BaseModel):
+    id:str = Field(description="The model ID.")
+    object:str = Field(description="The object type, which is always 'model'.")
+    created_at:int = Field(description="The date and time the model was created.")
+    owned_by:str = Field(description="The user ID of the model owner.")
+
+class ModelList(BaseModel):
+    data:List[Model] = Field(description="List of models.")
+    object:str = Field(description="The object type, which is always 'list'.")
 
 class ChatRequest(BaseModel):
     messages: Messages = Field(

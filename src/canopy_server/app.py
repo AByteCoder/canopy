@@ -40,6 +40,8 @@ from .models.v1.api_models import (
     SuccessUpsertResponse,
     SuccessDeleteResponse,
     ContextResponse,
+    ModelList,
+    Model
 )
 
 from canopy.llm.openai import OpenAILLM
@@ -101,6 +103,48 @@ llm: BaseLLM
 
 # Global variables - Logging
 logger: logging.Logger
+
+@openai_api_router.get(
+    "/models",
+    response_model=ModelList,
+    responses={500: {"description": "Failed to get the list of models"}})
+async def get_models() -> ModelList:
+    """
+    Get the list of models available in the OpenAI API.
+    """
+    models = [
+                {
+                "id": "gpt-4o-2024-05-13",
+                "object": "model",
+                "created": 1715368132,
+                "owned_by": "system"
+                },
+                {
+                "id": "gpt-4o-2024-08-06",
+                "object": "model",
+                "created": 1722814719,
+                "owned_by": "system"
+                },
+                {
+                "id": "gpt-4o-mini-2024-07-18",
+                "object": "model",
+                "created": 1721172717,
+                "owned_by": "system"
+                },
+                {
+                "id": "gpt-4o-mini",
+                "object": "model",
+                "created": 1721172741,
+                "owned_by": "system"
+                },
+                {
+                "id": "chatgpt-4o-latest",
+                "object": "model",
+                "created": 1723515131,
+                "owned_by": "system"
+                }
+            ]
+    return ModelList(data=[Model(**model) for model in models], object="list")
 
 
 @openai_api_router.post(
