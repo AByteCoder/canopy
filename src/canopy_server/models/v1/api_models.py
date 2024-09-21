@@ -9,7 +9,7 @@ from canopy.models.data_models import Messages, Query, Document
 class Model(BaseModel):
     id:str = Field(description="The model ID.")
     object:str = Field(description="The object type, which is always 'model'.")
-    created_at:int = Field(description="The date and time the model was created.")
+    created:int = Field(description="The date and time the model was created.")
     owned_by:str = Field(description="The user ID of the model owner.")
 
 class ModelList(BaseModel):
