@@ -16,6 +16,7 @@ from canopy.context_engine import ContextEngine
 from canopy.chat_engine import ChatEngine
 from starlette.concurrency import run_in_threadpool
 from sse_starlette.sse import EventSourceResponse
+from datetime import datetime
 
 from fastapi import (
     FastAPI,
@@ -47,6 +48,9 @@ from .models.v1.api_models import (
 from canopy.llm.openai import OpenAILLM
 from canopy_cli.errors import ConfigError
 from canopy import __version__
+
+CANOPY_PROJECT_NAME = "CANOPY_PROJECT_NAME"
+CANOPY_PROJECT_NAME = os.getenv(CANOPY_PROJECT_NAME, "Canopy Bot")
 
 APIChatResponse = Union[ChatResponse, EventSourceResponse]
 
@@ -114,33 +118,9 @@ async def get_models() -> ModelList:
     """
     models = [
                 {
-                "id": "gpt-4o-2024-05-13",
+                "id": CANOPY_PROJECT_NAME,
                 "object": "model",
-                "created": 1715368132,
-                "owned_by": "system"
-                },
-                {
-                "id": "gpt-4o-2024-08-06",
-                "object": "model",
-                "created": 1722814719,
-                "owned_by": "system"
-                },
-                {
-                "id": "gpt-4o-mini-2024-07-18",
-                "object": "model",
-                "created": 1721172717,
-                "owned_by": "system"
-                },
-                {
-                "id": "gpt-4o-mini",
-                "object": "model",
-                "created": 1721172741,
-                "owned_by": "system"
-                },
-                {
-                "id": "chatgpt-4o-latest",
-                "object": "model",
-                "created": 1723515131,
+                "created": int(datetime.now().timestamp()),
                 "owned_by": "system"
                 }
             ]

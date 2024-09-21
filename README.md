@@ -263,6 +263,15 @@ from openai import OpenAI
 client = OpenAI(base_url="http://localhost:8000/v1/my-namespace")
 ```
 
+### Customising Model Display name in Open WebUI
+
+By default the model would appear as **Canopy Bot**
+
+To overide this you can set the `CANOPY_PROJECT_NAME` environment variable
+```
+export CANOPY_PROJECT_NAME="project name"
+```
+
 
 ### Running Canopy server in production
 
